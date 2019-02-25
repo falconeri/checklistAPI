@@ -37,4 +37,8 @@ class Checklist extends Model {
     protected $casts = [
         'is_completed' => 'boolean',
     ];
+
+    public function items() {
+        return $this->hasMany('App\Item');
+    }
 }
