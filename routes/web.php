@@ -22,14 +22,32 @@ $router->post('login', 'AuthController@login');
 
 $router->group(
     ['middleware' => 'auth'], function () use ($router) {
+    /* Checklists */
     $router->get('checklists', 'ChecklistController@index');
     $router->post('checklists', 'ChecklistController@store');
     $router->get(
         'checklists/{checklistId}', [
-        'as' => 'checklist.show', 'uses' => 'ChecklistController@show'
-    ]
+            'as' => 'checklist.show', 'uses' => 'ChecklistController@show'
+        ]
     );
     $router->patch('checklists/{checklistId}', 'ChecklistController@update');
     $router->delete('checklists/{checklistId}', 'ChecklistController@destroy');
+
+    /* Items */
+    $router->post('checklists/complete', 'ItemController@complete');
+    $router->post('checklists/incomplete', 'ItemController@incomplete');
+    $router->get(
+        'checklists/{checklistId}/items', [
+            'as' => 'item.index', 'uses' => 'ItemController@index'
+        ]
+    );
+    $router->post('checklists/{checklistId}/items', 'ItemController@store');
+    $router->get(
+        'checklists/{checklistId}/items/{itemId}', [
+            'as' => 'item.show', 'uses' => 'ItemController@show'
+        ]
+    );
+    $router->patch('checklists/{checklistId}/items/{itemId}', 'ItemController@update');
+    $router->delete('checklists/{checklistId}/items/{itemId}', 'ItemController@destroy');
 }
 );
