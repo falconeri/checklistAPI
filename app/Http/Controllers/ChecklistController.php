@@ -10,13 +10,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\Paginator;
 use App\Checklist;
 
 class ChecklistController extends Controller {
     public function index(Request $request) {
         $pageLimit = $request->input('page_limit', 10);
-        $pageOffset = $request->input('page_offset', 0);
+        $pageOffset = $request->input('page_offset', 1);
 
         Paginator::currentPageResolver(
             function () use ($pageOffset) {
